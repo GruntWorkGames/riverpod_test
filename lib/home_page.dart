@@ -31,7 +31,7 @@ class HomePage extends ConsumerWidget {
                   child: ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: ((context) => const PDFView())));
+                            builder: ((context) => PDFScreen())));
                       },
                       child: const Text("Go to PDF")))
             ],
