@@ -19,7 +19,7 @@ class PDFState extends State<PDFView> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
 
-  final progressIndicator = CircularProgressIndicator();
+  final progressIndicator = const CircularProgressIndicator();
 
   Future<String> downloadAndSavePdf() async {
     var downloadExists = false;
