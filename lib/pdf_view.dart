@@ -3,15 +3,24 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
+const key = 'customCacheKey';
+CacheManager pdfCacheManager = CacheManager(
+  Config(
+    key,
+    stalePeriod: const Duration(minutes: 1),
+    maxNrOfCacheObjects: 200,
+  ),
+);
+
 var pdfProvider = FutureProvider<PDFView>((ref) async {
   const sampleUrl =
       'https://mini-iac.org/downloads/sequences/2023-knowns/download-file?path=2023+Unlimited.pdf';
-  var file = await DefaultCacheManager().getFileFromCache("pdf");
+  var file = await pdfCacheManager.getFileFromCache("pdf");
 
   if (file == null) {
     print("downloading");
-    await DefaultCacheManager().downloadFile(sampleUrl, key: "pdf");
-    file = await DefaultCacheManager().getFileFromCache("pdf");
+    await pdfCacheManager.downloadFile(sampleUrl, key: "pdf");
+    file = await pdfCacheManager.getFileFromCache("pdf");
   } else {
     print("loading from cache");
   }
