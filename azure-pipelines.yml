@@ -1,0 +1,21 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'macOS-10.15'
+
+steps:
+  - task: UseFlutterVersion@1
+    inputs:
+      flutterVersion: '2.8.1'
+
+  - script: flutter pub get
+    displayName: 'flutter pub get'
+
+  - script: flutter test
+    displayName: 'flutter test'
