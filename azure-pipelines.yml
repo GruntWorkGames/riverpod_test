@@ -20,7 +20,7 @@ steps:
   - task: FlutterCommand@0
     inputs:
       projectDirectory: '.'
-      arguments: 'flutter pub get'
+      arguments: 'pub get'
 
   - task: FlutterBuild@0
     inputs:
