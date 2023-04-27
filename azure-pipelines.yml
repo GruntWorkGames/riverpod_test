@@ -17,8 +17,10 @@ steps:
       channel: 'stable'
       version: 'latest'
 
-  - script: flutter pub get
-    displayName: 'flutter pub get'
+  - task: Bash@3
+    inputs:
+      targetType: 'inline'
+      script: 'flutter pub get'
 
   - task: FlutterBuild@0
     inputs:
