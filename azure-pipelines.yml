@@ -21,12 +21,6 @@ steps:
     inputs:
       projectDirectory: '.'
       arguments: 'pub get'
-
-  - task: FlutterBuild@0
-    inputs:
-      target: 'apk'
-      projectDirectory: '.'
-      debugMode: true
   
   - task: FlutterBuild@0
     inputs:
