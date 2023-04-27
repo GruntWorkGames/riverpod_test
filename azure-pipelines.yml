@@ -17,10 +17,10 @@ steps:
       channel: 'stable'
       version: 'latest'
 
-  - task: Bash@3
+  - task: FlutterCommand@0
     inputs:
-      targetType: 'inline'
-      script: 'flutter pub get'
+      projectDirectory: '.'
+      arguments: 'flutter pub get'
 
   - task: FlutterBuild@0
     inputs:
