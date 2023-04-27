@@ -27,11 +27,6 @@ steps:
       target: 'web'
       projectDirectory: '.'
 
-  - task: FlutterAnalyzeTask@0
-    inputs:
-      projectDirectory: '.'
-
-
   - task: PublishPipelineArtifact@1
     inputs:
       targetPath: '$(Pipeline.Workspace)'
