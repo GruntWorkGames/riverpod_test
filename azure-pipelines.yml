@@ -24,8 +24,10 @@ steps:
   
   - task: FlutterBuild@0
     inputs:
-      target: 'web'
+      target: 'apk'
       projectDirectory: '.'
+      entryPoint: "lib/main.dart"
+      iosCodesign: false
 
   - task: PublishPipelineArtifact@1
     inputs:
