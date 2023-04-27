@@ -10,12 +10,28 @@ pool:
   vmImage: 'macOS-10.15'
 
 steps:
-  - task: UseFlutterVersion@1
+
+  - task: FlutterInstall@0
     inputs:
-      flutterVersion: '2.8.1'
+      mode: 'auto'
+      channel: 'stable'
+      version: 'latest'
 
   - script: flutter pub get
     displayName: 'flutter pub get'
 
-  - script: flutter test
-    displayName: 'flutter test'
+  - task: FlutterBuild@0
+    inputs:
+      target: 'apk'
+      projectDirectory: '.'
+      debugMode: true
+
+  - task: FlutterAnalyzeTask@0
+    inputs:
+      projectDirectory: '.'
+
+
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Pipeline.Workspace)'
+      publishLocation: 'pipeline'
