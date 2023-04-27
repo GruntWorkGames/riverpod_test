@@ -12,23 +12,27 @@ pool:
 steps:
 
   - task: JavaToolInstaller@0
+    displayName: 'install java 11'
     inputs:
       versionSpec: '11'
       jdkArchitectureOption: 'x64'
       jdkSourceOption: 'PreInstalled'
 
   - task: FlutterInstall@0
+    displayName: 'install flutter'
     inputs:
       mode: 'auto'
       channel: 'stable'
       version: 'latest'
 
   - task: FlutterCommand@0
+    displayName: 'get flutter dependancies'
     inputs:
       projectDirectory: '.'
       arguments: 'pub get'
   
   - task: FlutterBuild@0
+    displayName: 'build android'
     inputs:
       target: 'apk'
       projectDirectory: '.'
@@ -36,6 +40,7 @@ steps:
       iosCodesign: false
 
   - task: PublishPipelineArtifact@1
+    displayName: 'publish apk'
     inputs:
       targetPath: '$(Pipeline.Workspace)'
       publishLocation: 'pipeline'
