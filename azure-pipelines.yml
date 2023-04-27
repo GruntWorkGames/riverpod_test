@@ -27,6 +27,11 @@ steps:
       target: 'apk'
       projectDirectory: '.'
       debugMode: true
+  
+  - task: FlutterBuild@0
+    inputs:
+      target: 'web'
+      projectDirectory: '.'
 
   - task: FlutterAnalyzeTask@0
     inputs:
