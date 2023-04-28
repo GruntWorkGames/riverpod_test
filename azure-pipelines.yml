@@ -1,8 +1,4 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
- 
+
 trigger:
 - master
 
@@ -30,12 +26,6 @@ steps:
     inputs:
       projectDirectory: '.'
       arguments: 'pub get'
-
-  - task: FlutterCommand@0
-    displayName: 'flutter doctor'
-    inputs:
-      projectDirectory: '.'
-      arguments: 'doctor'    
   
   - task: FlutterBuild@0
     displayName: 'build android'
@@ -52,6 +42,6 @@ steps:
       targetFolder: '$(build.artifactStagingDirectory)'
 
   - task: PublishBuildArtifacts@1
-    displayName: 'public apk'
+    displayName: 'publish apk'
     inputs:
-      artifactName: 'drop'
+      artifactName: 'output'
