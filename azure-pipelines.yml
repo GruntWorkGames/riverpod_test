@@ -30,6 +30,12 @@ steps:
     inputs:
       projectDirectory: '.'
       arguments: 'pub get'
+
+  - task: FlutterCommand@0
+    displayName: 'flutter doctor'
+    inputs:
+      projectDirectory: '.'
+      arguments: 'flutter doctor'    
   
   - task: FlutterBuild@0
     displayName: 'build android'
