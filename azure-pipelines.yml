@@ -35,7 +35,7 @@ steps:
     displayName: 'flutter doctor'
     inputs:
       projectDirectory: '.'
-      arguments: 'flutter doctor'    
+      arguments: 'doctor'    
   
   - task: FlutterBuild@0
     displayName: 'build android'
