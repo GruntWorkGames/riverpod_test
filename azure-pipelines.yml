@@ -26,6 +26,11 @@ steps:
     inputs:
       projectDirectory: '.'
       arguments: 'pub get'
+
+  - task: FlutterAnalyzeTask@0
+    inputs:
+      projectDirectory: '.'
+      pubGet: false
   
   - task: FlutterBuild@0
     displayName: 'build android'
@@ -34,7 +39,7 @@ steps:
       projectDirectory: '.'
       entryPoint: "lib/main.dart"
       iosCodesign: false
-
+    
   - task: CopyFiles@2
     displayName: 'Copy apk'
     inputs:
