@@ -18,11 +18,8 @@ var pdfProvider = FutureProvider<PdfView>((ref) async {
   var file = await pdfCacheManager.getFileFromCache(key);
 
   if (file == null) {
-    print("downloading");
     await pdfCacheManager.downloadFile(sampleUrl, key: key);
     file = await pdfCacheManager.getFileFromCache(key);
-  } else {
-    print("loading from cache");
   }
 
   return PdfView(path: file?.file.path ?? "");
