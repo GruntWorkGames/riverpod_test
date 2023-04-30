@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'counter_page.dart';
 import 'pdf_view.dart';
+import "auth_page.dart";
 
 class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -33,7 +34,18 @@ class HomePage extends ConsumerWidget {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: ((context) => PDFScreen())));
                       },
-                      child: const Text("Go to PDF")))
+                      child: const Text("Go to PDF"))),
+              Container(
+                margin: const EdgeInsets.only(top: 15),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => AuthPage()),
+                    );
+                  },
+                  child: const Text("Auth Page"),
+                ),
+              ),
             ],
           ),
         ));
