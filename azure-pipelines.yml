@@ -1,0 +1,52 @@
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+
+  - task: JavaToolInstaller@0
+    displayName: 'install java 11'
+    inputs:
+      versionSpec: '11'
+      jdkArchitectureOption: 'x64'
+      jdkSourceOption: 'PreInstalled'
+
+  - task: FlutterInstall@0
+    displayName: 'install flutter'
+    inputs:
+      mode: 'auto'
+      channel: 'stable'
+      version: 'latest'
+
+  - task: FlutterCommand@0
+    displayName: 'get flutter dependancies'
+    inputs:
+      projectDirectory: '.'
+      arguments: 'pub get'
+
+  - task: FlutterAnalyzeTask@0
+    inputs:
+      projectDirectory: '.'
+      pubGet: false
+  
+  - task: FlutterBuild@0
+    displayName: 'build android'
+    inputs:
+      target: 'apk'
+      projectDirectory: '.'
+      entryPoint: "lib/main.dart"
+      iosCodesign: false
+    
+  - task: CopyFiles@2
+    displayName: 'Copy apk'
+    inputs:
+      contents: '**/*.apk'
+      targetFolder: '$(build.artifactStagingDirectory)'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'publish apk'
+    inputs:
+      artifactName: 'output'
