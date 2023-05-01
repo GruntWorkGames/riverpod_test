@@ -1,17 +1,35 @@
 // ignore_for_file: must_be_immutable
 
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http/http.dart';
 
 final formKey = GlobalKey<FormState>();
+
+class EmailNotifier extends StateNotifier<String> {
+  EmailNotifier() : super("Email");
+  void setEmail(String email) {
+    state = email;
+  }
+}
+
+class PasswordNotifier extends StateNotifier<String> {
+  PasswordNotifier() : super("Password");
+  void setPassword(String pw) {
+    state = pw;
+  }
+}
+
+final passwordProvider = StateNotifierProvider<PasswordNotifier, String>((ref) {
+  return PasswordNotifier();
+});
+
+final emailProvider = StateNotifierProvider<EmailNotifier, String>((ref) {
+  return EmailNotifier();
+});
 
 class AuthPage extends ConsumerWidget {
   AuthPage({super.key});
 
-  var password = "my client secret";
-  var driverID = "my client identifier";
   final tokenEndpoint =
       Uri.parse('https://mobileapi.nussbaum.com/api/DEMO/token');
 
@@ -22,13 +40,15 @@ class AuthPage extends ConsumerWidget {
   //   var headers = {'password': '', 'driverid': ''};
   // }
 
-  ElevatedButton submitButton(BuildContext context) {
+  ElevatedButton submitButton(BuildContext context, WidgetRef ref) {
     return ElevatedButton(
       onPressed: () {
         if (formKey.currentState!.validate()) {
-          driverID = emailController.value.text;
-          password = passwordController.value.text;
-          print('user: $driverID, password: $password');
+          ref.read(emailProvider.notifier).setEmail(emailController.value.text);
+          ref
+              .read(passwordProvider.notifier)
+              .setPassword(passwordController.value.text);
+          //print('user: $driverID, password: $password');
         }
 
         FocusScopeNode focus = FocusScope.of(context);
@@ -42,6 +62,9 @@ class AuthPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    emailController.text = ref.watch(emailProvider);
+    passwordController.text = ref.watch(passwordProvider);
+
     return Scaffold(
       appBar: AppBar(),
       body: Form(
@@ -69,7 +92,7 @@ class AuthPage extends ConsumerWidget {
                 }
               },
             ),
-            submitButton(context),
+            submitButton(context, ref),
           ],
         ),
       ),
